@@ -5,7 +5,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using ImTools;
+// using ImTools;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -262,7 +262,7 @@ public class ProgressDialog : IDisposable
         uint dialogFlags = (uint)IPD_Flags.Normal;
         if (flags.Length != 0)
         {
-            flags.ForEach(flag => dialogFlags = dialogFlags | (uint)flag);
+            Array.ForEach(flags, flag => dialogFlags = dialogFlags | (uint)flag);
         }
 
         pd.SetAnimation(parentHandle, Animation);

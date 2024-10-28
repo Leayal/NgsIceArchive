@@ -151,8 +151,13 @@ public class SettingsPageViewModel : BindableBase
         // フォルダ選択ダイアログ
         FolderPicker picker = new()
         {
-            Title = localizeService.GetLocalizedString("SelectPso2BinPathText"), InputPath = Pso2BinPath
+            Title = localizeService.GetLocalizedString("SelectPso2BinPathText")
         };
+        var oldPath = Pso2BinPath;
+        if (Directory.Exists(oldPath))
+        {
+            picker.InputPath = oldPath;
+        }
 
         // 出力先ファイルダイアログを表示
         if (picker.ShowDialog() != true)

@@ -6,7 +6,6 @@
 // -----------------------------------------------------------------------
 
 using FastSearchLibrary;
-using ImTools;
 using NgsPacker.Events;
 using NgsPacker.Helpers;
 using NgsPacker.Interfaces;
@@ -486,26 +485,32 @@ public class ZamboniService : IZamboniService, IDisposable
         }
 
         // グループ1のファイルをパース
-        iceFile.groupOneFiles?.ForEach(bytes =>
+        if (iceFile.groupOneFiles != null)
         {
-            sb.Append(",ICE");
-            sb.Append(num);
-            sb.Append(",1,");
-            sb.Append(Encoding.ASCII.GetString(bytes, 64, BitConverter.ToInt32(bytes, 16))
-                .TrimEnd(new char[1]));
-            sb.Append(Environment.NewLine);
-        });
+            Array.ForEach(iceFile.groupOneFiles, bytes =>
+            {
+                sb.Append(",ICE");
+                sb.Append(num);
+                sb.Append(",1,");
+                sb.Append(Encoding.ASCII.GetString(bytes, 64, BitConverter.ToInt32(bytes, 16))
+                    .TrimEnd(new char[1]));
+                sb.Append(Environment.NewLine);
+            });
+        }
 
         // グループ2のファイルをパース
-        iceFile.groupTwoFiles?.ForEach(bytes =>
+        if (iceFile.groupTwoFiles != null)
         {
-            sb.Append(",ICE");
-            sb.Append(num);
-            sb.Append(",2,");
-            sb.Append(Encoding.ASCII.GetString(bytes, 64, BitConverter.ToInt32(bytes, 16))
-                .TrimEnd(new char[1]));
-            sb.Append(Environment.NewLine);
-        });
+            Array.ForEach(iceFile.groupTwoFiles, bytes =>
+            {
+                sb.Append(",ICE");
+                sb.Append(num);
+                sb.Append(",2,");
+                sb.Append(Encoding.ASCII.GetString(bytes, 64, BitConverter.ToInt32(bytes, 16))
+                    .TrimEnd(new char[1]));
+                sb.Append(Environment.NewLine);
+            });
+        }
 
         return sb.ToString().TrimEnd(Environment.NewLine.ToCharArray());
     }

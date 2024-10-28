@@ -52,23 +52,26 @@ public partial class ShellWindow
                 sizeof(uint));
         }
 
-        // ウィンドウの角を丸くする
-        int rounded = (int)DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
+        if (OperatingSystem.IsWindowsVersionAtLeast(11))
+        {
+            // ウィンドウの角を丸くする
+            int rounded = (int)DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
 
-        DwmSetWindowAttribute(
-            hWnd.Handle,
-            DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE,
-            ref rounded,
-            sizeof(uint));
+            DwmSetWindowAttribute(
+                hWnd.Handle,
+                DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE,
+                ref rounded,
+                sizeof(uint));
 
-        // ウィンドウの背景を半透過にする
-        int bg = (int)DWM_SYSTEMBACKDROP_TYPE.DWMSBT_TABBEDWINDOW;
+            // ウィンドウの背景を半透過にする
+            int bg = (int)DWM_SYSTEMBACKDROP_TYPE.DWMSBT_TABBEDWINDOW;
 
-        DwmSetWindowAttribute(
-            hWnd.Handle,
-            DWMWINDOWATTRIBUTE.DWMWA_SYSTEMBACKDROP_TYPE,
-            ref bg,
-            sizeof(uint));
+            DwmSetWindowAttribute(
+                hWnd.Handle,
+                DWMWINDOWATTRIBUTE.DWMWA_SYSTEMBACKDROP_TYPE,
+                ref bg,
+                sizeof(uint));
+        }
     }
 
     private void Window_ContentRendered(object sender, EventArgs e)

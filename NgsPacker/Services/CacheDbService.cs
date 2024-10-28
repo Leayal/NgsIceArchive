@@ -6,7 +6,6 @@
 // -----------------------------------------------------------------------
 
 using FastSearchLibrary;
-using ImTools;
 using NgsPacker.Entities;
 using NgsPacker.Helpers;
 using NgsPacker.Interfaces;
@@ -86,7 +85,7 @@ public class CacheDbService : ICacheDbService, IDisposable
             // ファイルのエントリ
             IceFiles fileEntry = context.IceFiles.Single(x => x.Name == path.FullName);
 
-            if (fileEntry.List().IsEmpty)
+            if (fileEntry.Contents.Count == 0)
             {
                 // 新規登録
                 await context.IceFiles.AddAsync(new IceFiles
